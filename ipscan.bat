@@ -1,6 +1,6 @@
 @echo off
 
-echo ipScan (C)2017 Anthony Burridge
+echo ipScan (C)2017 v.02 Anthony Burridge
 if %1.==. (
     echo USAGE : ipscan.bat ipsubnet filename.txt
 ) else (
