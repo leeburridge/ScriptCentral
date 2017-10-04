@@ -38,6 +38,10 @@ echo Scanning %ipout%
 set iprange=%iprange%.%%i
 echo This will take some time...
 echo ipScan results - %ipout%>%2
-FOR /L %%i IN (1,1,254) DO ping -n 1 %iprange% | FIND /i "Reply">>%2
+FOR /L %%i IN (1,1,254) DO (
+ping -n 1 %iprange% | FIND /i "Reply">>%2
+nslookup %iprange% | FIND /i "Name:">>%2
+echo -->>%2)
+
 echo Finished.
 goto:eof
