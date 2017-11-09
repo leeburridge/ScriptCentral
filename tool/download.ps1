@@ -1,7 +1,7 @@
 <#
   (C)2017 Lee Burridge
   Filename : download.ps1
-  Source : 
+  Source : https://github.com/leeburridge/ScriptCentral/blob/master/tool/download.ps1
   Simple download script for PowerShell. Prompts user for source and destination location
 #>
 param (    
