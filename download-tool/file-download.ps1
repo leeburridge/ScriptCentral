@@ -4,15 +4,18 @@
   Source : https://github.com/leeburridge/ScriptCentral/blob/master/download-tool/download.ps1
   Simple download script for PowerShell. Prompts user for source and destination location
 #>
+Add-Type -AssemblyName PresentationFramework
 Function Download_Click()
 {
 	$client = new-object System.Net.WebClient
 	$client.DownloadFile($txtSRC.text, $txtDST.text)
+
+	$msgbox = [System.Windows.MessageBox]::Show('Download Complete')	
 }
 
 Function Exit_Click()
 {
-	Exit
+	#[System.Windows.Forms.Application]::Exit(1)
 }
 
 Function Generate-Form {
@@ -98,5 +101,3 @@ Function Generate-Form {
 } # End Function
 
 Generate-Form
-
-
