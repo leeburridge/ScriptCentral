@@ -1,1 +1,1 @@
-Set-Mailbox accounts@JomaJewellery.com -GrantSendOnBehalfTo AbbieGreening@JomaJewellery.com
+Set-Mailbox <EMAIL> -GrantSendOnBehalfTo <EMAIL>
