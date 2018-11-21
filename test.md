@@ -1,4 +1,5 @@
-| <img width=800/>                        |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+
+| <img width=200/>                        |                    |            |               |                 |                 |                 |                                |                                    |            |            |
 | Product Name            | Highest Pay Column | Max Shifts | Max Employees | Max Departments | Max Pay Periods | Global Calendar | Bulk Shift Assignment Calendar | Personal Shift Assignment Calendar | Optional 1 | Optional 2 |
 |-------------------------|--------------------|------------|---------------|-----------------|-----------------|-----------------|--------------------------------|------------------------------------|------------|------------|
 |                2019A UK |                    |            |               |                 |                 |                 |                                |                                    |            |            |
