@@ -1,32 +1,22 @@
-| Product Name | Highest Pay Column | Max Shifts | Max Employees | Max Departments | Max Pay Periods | Global Calendar | Bulk Shift Assignment Calendar | Personal Shift Assignment Calendar | Optional | 
-|--------------|--------------------|------------|---------------|-----------------|-----------------|-----------------|--------------------------------|------------------------------------|----------|
-| 2019A UK     |                    |            |               |                 |                 |                 |                                |                                    |          |
-| Alto Pro     |                    |            |               |                 |                 |                 |                                |                                    |          |
-|              |                    |            |               |                 |                 |                 |                                |                                    |          |
-
-
-<table class="source-tableeditor">
-<tbody>
-<tr>
-<td>dfdsf</td>
-<td></td>
-<td>dsfds</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>fsdfsfs</td>
-<td>sdfdsf</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>fsdfsf</td>
-<td>sdf</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Product Name            | Highest Pay Column | Max Shifts | Max Employees | Max Departments | Max Pay Periods | Global Calendar | Bulk Shift Assignment Calendar | Personal Shift Assignment Calendar | Optional 1 | Optional 2 |
+|-------------------------|--------------------|------------|---------------|-----------------|-----------------|-----------------|--------------------------------|------------------------------------|------------|------------|
+|                2019A UK |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Alto Pro                |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Alto Ultimate           |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Facetrac Ultimate       |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Geoface Premium         |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| GeoProx 100             |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| GeoProx 200             |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Geotime 10 Plus         |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Geotime 100             |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Geotime 200             |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Proxtime 100            |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Proxtime 200            |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Soprano Pro             |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| Soprano Ultimate        |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| TOUCHtime 1000 pro      |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| TOUCHtime 1000 Ultimate |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| TOUCHtime 1200 Pro      |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| TOUCHtime 1200 Ultimate |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| TOUCHtime 1400 Pro      |                    |            |               |                 |                 |                 |                                |                                    |            |            |
+| TOUCHtime 1400 Ultimate |                    |            |               |                 |                 |                 |                                |                                    |            |            |
