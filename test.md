@@ -1,5 +1,5 @@
-| Product Name | Highest Pay Column |   |   |   |
-|:--------------:|:--------------------:|:---:|:---|:---|
-|              |                    |   |   |   |
-|              |                    |   |   |   |
-|              |                    |   |   |   |
+| Product Name | Highest Pay Column | Max Shifts | Max Employees | Max Departments | Max Pay Periods | Global Calendar | Bulk Shift Assignment Calendar | Personal Shift Assignment Calendar | Optional | 
+|--------------|--------------------|------------|---------------|-----------------|-----------------|-----------------|--------------------------------|------------------------------------|----------|
+| 2019A UK     |                    |            |               |                 |                 |                 |                                |                                    |          |
+| Alto Pro     |                    |            |               |                 |                 |                 |                                |                                    |          |
+|              |                    |            |               |                 |                 |                 |                                |                                    |          |
