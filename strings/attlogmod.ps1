@@ -17,7 +17,8 @@ foreach($line in Get-Content .\$infile) {
 	$s = $s.substring(0,$s.length-1)
 	$s = $s + $newchar	
 	Add-Content $outfile $s
-  }
+}
+
 
 
 
