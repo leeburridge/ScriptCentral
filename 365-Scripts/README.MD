@@ -2,15 +2,13 @@
 
 To download using powershell :
 
-Connecting to Office 365 Instance
-
+<B>Connecting to Office 365 Instance</B><br>
 <p>$client = new-object System.Net.WebClient<br>
 $client.DownloadFile(“https://raw.githubusercontent.com/leeburridge/ScriptCentral/master/365-Scripts/connect-365.ps1”,“connect-365.ps1”)<br>
 .\connect-365.ps1
 </p>
 
-Check Exchange migration progress
-
+<B>Check Exchange migration progress</B><br>
 <p>$client = new-object System.Net.WebClient<br>
 $client.DownloadFile(“https://raw.githubusercontent.com/leeburridge/ScriptCentral/master/365-Scripts/migratecheck.ps1”,“migratecheck.ps1”)<br>
 .\migratecheck.ps1
