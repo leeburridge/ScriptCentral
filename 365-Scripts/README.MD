@@ -10,6 +10,6 @@ $client.DownloadFile(“https://raw.githubusercontent.com/leeburridge/ScriptCent
 
 Check Exchange migration progress
 
-$client = new-object System.Net.WebClient
-
-$client.DownloadFile(“https://raw.githubusercontent.com/leeburridge/ScriptCentral/master/365-Scripts/migratecheck.ps1”,“migratecheck.ps1”)
+<p>$client = new-object System.Net.WebClient<br>
+$client.DownloadFile(“https://raw.githubusercontent.com/leeburridge/ScriptCentral/master/365-Scripts/migratecheck.ps1”,“migratecheck.ps1”)<br>
+</p>
