@@ -1,3 +1,6 @@
+** NB. You may need to run PS as Administrator for this to work **
+
+
 <B>Useful Office 365 scripts</B>
 
 To download using powershell :
