@@ -9,3 +9,6 @@ The subnet switch is used but the last octet is dropped so that the entire subne
 
 migratecheck.ps1
 Loops until all mailboxes have been migrated. Used in hybrid exchange to Office 365 migration
+
+UPDATES
+13/20/2020 - Added some more useful scripts that I use occasionally. These are taken from other websites and amended and curated by myself. Consider these forks of the originals and they will be developed independently.
