@@ -1,4 +1,4 @@
-' Simple script to get free drive space on ALL drives
+# Simple script to get free drive space on ALL drives
 
 $Drive=Get-WmiObject Win32_LogicalDisk -Filter "DriveType = 3"
 $DriveSize=$Drive.Size;$DriveSize=[math]::Round($DriveSize/1GB)
