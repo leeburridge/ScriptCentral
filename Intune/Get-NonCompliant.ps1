@@ -7,7 +7,7 @@ Connect-MSGraph -AdminConsent
 Get-IntuneManagedDeviceOverview | select-object -property enrolledDeviceCount
 
 # List all non compliant devices registered into Intune
-Get-IntuneManagedDevice -Filter "complianceState eq 'noncompliant'" | select-object -property complianceState,deviceName,serialNumber,lastSyncDateTime,osVersion,manufacturer,model,userPrincipalName,userDisplayName
+Get-IntuneManagedDevice -Filter "complianceState eq 'noncompliant'" | select-object -property managedDeviceOwnerType,complianceState,deviceName,serialNumber,lastSyncDateTime,osVersion,manufacturer,model,userPrincipalName,userDisplayName
 
 # Get the policy ID
 $polID = Get-IntuneDeviceCompliancePolicy -filter "displayname eq 'CPD: Device Compliance Policy'" | select-object -ExpandProperty id
