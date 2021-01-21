@@ -22,6 +22,6 @@ Get-IntuneDeviceCompliancePolicyDeviceStateSummary
 Get-IntuneDeviceConfigurationPolicy
 
 # 
-$polID = Get-IntuneDeviceCompliancePolicy -filter "displayname eq 'CPD: Device Compliance Policy'" | select-object -ExpandProperty id
+$polID = Get-IntuneDeviceCompliancePolicy -filter "displayname eq '##GROUP##'" | select-object -ExpandProperty id
 Get-IntuneDeviceCompliancePolicyDeviceStatus -deviceCompliancePolicyId "$polID" -Filter {status -ne "compliant"}
 
