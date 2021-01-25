@@ -1,0 +1,1 @@
+get-IntuneManagedDevice | select deviceName, lastSyncDateTime, enrolledDateTime, complianceState, operatingSystem, osVersion, serialNumber, userDisplayName, manufacturer, model | export-csv devices.csv
