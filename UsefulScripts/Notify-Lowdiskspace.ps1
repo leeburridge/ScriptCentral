@@ -1,4 +1,4 @@
-' Change variables to be working SMTP creds and the $cname to the PCs name. Much more to be configured in here and needs putting into arguments.
+# Change variables to be working SMTP creds and the $cname to the PCs name. Much more to be configured in here and needs putting into arguments.
 
 $cname="Mycomputer"
 ForEach ($c in $cname)
