@@ -20,8 +20,8 @@
         This scripts needs to run using the logged on credentials.
 #>
 param(
-    [string]$ShortcutName         = "Password Reset (WSH)",
-    [string]$ShortcutUrl          = "https://pass.wshgroup.co.uk/",
+    [string]$ShortcutName         = "Password Reset Link",
+    [string]$ShortcutUrl          = "https://passwordlink.com",
     [string]$ShortcutIconLocation = "https://www.microsoft.com/favicon.ico",
     [bool]$ShortcutOnDesktop      = $false,
     [bool]$ShortcutInStartMenu    = $true
