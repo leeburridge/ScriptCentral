@@ -1,6 +1,6 @@
 Cisco Umbrella 2.2.480 Intune installation [Static]
 Author : leeburridge76@gmail.com
-Date : 5/5/2021
+Date : 29/6/2021
 
 These files are the required files to succesfully uninstall an existing version of Cisco Umbrella and install version 2.2.480 along with a flag file in c:\programdata\OpenDNS\ERC\Skip_Upgrades.flag
 
