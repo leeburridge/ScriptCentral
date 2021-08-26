@@ -1,5 +1,5 @@
 # Get-GracePeriod.ps1 (C)2021 Lee Burridge
-# Script reads grace perdiod and notifies by eail is less than $global:expdays
+# Script reads RDS grace perdiod and notifies by email if less than $global:expdays
 
 # Instructions
 # Replace $EmailTo with your email address
