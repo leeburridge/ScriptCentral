@@ -3,9 +3,9 @@ Connect-MSGraph -AdminConsent
 
 # Run this to get non compliant devices and reasons
 
-#Show how many enrolled devices there are
+# Show how many enrolled devices there are
 $enroled = Get-IntuneManagedDeviceOverview | select-object -property enrolledDeviceCount
-write-host $Enroled
+write-host "- $Enroled -"
 
 # Display active devices (Since a certain date)
 $active = Get-IntuneManagedDevice | Where-Object { $_.lastSyncDateTime -gt "10/1/2021 0:00:01 AM" }
