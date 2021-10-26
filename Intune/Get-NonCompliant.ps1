@@ -5,19 +5,22 @@ Connect-MSGraph -AdminConsent
 
 #Show how many enrolled devices there are
 $enroled = Get-IntuneManagedDeviceOverview | select-object -property enrolledDeviceCount
-echo "Enroled : $enroled"
+write-host $Enroled
 
 # Display active devices (Since a certain date)
-active = Get-IntuneManagedDevice | Where-Object { $_.lastSyncDateTime -gt "10/1/2021 0:00:01 AM" }
-echo "Active devices : $active.count"
+$active = Get-IntuneManagedDevice | Where-Object { $_.lastSyncDateTime -gt "10/1/2021 0:00:01 AM" }
+echo "Active :"
+$active.count
 
 # Noncompliant count
 $noncompliant = Get-IntuneManagedDevice -Filter "complianceState eq 'noncompliant'" | select-object -property managedDeviceOwnerType,complianceState,deviceName,serialNumber,lastSyncDateTime,osVersion,manufacturer,model,userPrincipalName,userDisplayName
-echo "Non-Compliant : $noncompliant.count"
+echo "Non compliant :"
+$noncompliant.count
 
 # Compliant count
 $compliant = Get-IntuneManagedDevice -Filter "complianceState eq 'compliant'" | select-object -property managedDeviceOwnerType,complianceState,deviceName,serialNumber,lastSyncDateTime,osVersion,manufacturer,model,userPrincipalName,userDisplayName
-echo "Compliant : $compliant.count"
+echo "Compliant :"
+$compliant.count
 
 ############################################## Junk notes
 # List all non compliant devices registered into Intune
