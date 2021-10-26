@@ -25,3 +25,6 @@ Get-IntuneDeviceConfigurationPolicy
 $polID = Get-IntuneDeviceCompliancePolicy -filter "displayname eq '##GROUP##'" | select-object -ExpandProperty id
 Get-IntuneDeviceCompliancePolicyDeviceStatus -deviceCompliancePolicyId "$polID" -Filter {status -ne "compliant"}
 
+# Display active devices (Since a certain date)
+active = Get-IntuneManagedDevice | Where-Object { $_.lastSyncDateTime -gt "10/1/2021 0:00:01 AM" }
+$active.count
