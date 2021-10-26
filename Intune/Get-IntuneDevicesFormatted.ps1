@@ -17,4 +17,5 @@ connect-msgraph -adminconsent
 get-IntuneManagedDevice | select deviceName, lastSyncDateTime, enrolledDateTime, complianceState, operatingSystem, osVersion, serialNumber, manufacturer, model, userDisplayName | export-csv $outfile
 
 echo "Output to $outfile"
+
 exit 0
