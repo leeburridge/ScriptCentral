@@ -1,5 +1,5 @@
 # gets all drives from the below listed servers and outputs to CSVs
-#
+# Lee Burridge / Lewis Sheppard 2021
 
 $servers = 'server1', 'server2'
 
