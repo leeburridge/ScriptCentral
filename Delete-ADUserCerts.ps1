@@ -20,7 +20,7 @@ foreach ($oneUserWithCert in $usersWithCerts) {
       $saveExpired = Join-Path $env:TEMP ('expired-cert-{0}-exp{1}-{2}.cer' -f $oneUserWithCert.sAMAccountName, $oneCert.NotAfter.ToString('yyyy-MM-dd-HH-mm-ss'), $oneCert.Thumbprint)
       [void] ([System.IO.File]::WriteAllBytes($saveExpired, $oneCert.Export('Cert')))
       Write-Host ('  removing: saved = {0}' -f $saveExpired)
-
+ 
       Set-ADUser -Identity $oneUserWithCert -Certificates @{ Remove = $oneCert }
     }
   }
