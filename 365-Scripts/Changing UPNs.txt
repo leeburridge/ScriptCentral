@@ -1,0 +1,4 @@
+If you change a users UPN there are lots of behind the scene changes that occur because of this. Use the command below to check that it has changed. This should give a good indication
+that it is okay to proceed. OneDrive for example may need to be logged out of and back in so that the URIs that it connects to update correctly.
+
+Get-SPOSite -IncludePersonalSite $true -Limit all -Filter "Owner -like 'username'" 
