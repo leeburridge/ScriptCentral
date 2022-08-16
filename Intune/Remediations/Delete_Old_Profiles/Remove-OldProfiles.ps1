@@ -16,7 +16,7 @@ Start-Process -FilePath "$tempdir\delprof.exe" -ArgumentList /Q /D:$days
 Remove-Item "$tempdir\delprof.exe"
 
 ##Download DelProf2
-#Invoke-WebRequest -URI "https://github.com/andrew-s-taylor/public/raw/main/delprof/DelProf2.exe" -OutFile "$tempdir\delprof2.exe"
+#Invoke-WebRequest -URI "https://github.com/leeburridge/ScriptCentral/raw/master/Intune/Remediations/Delete_Old_Profiles/DelProf2.exe" -OutFile "$tempdir\delprof2.exe"
 ##Run DelProf2
 #Start-Process -FilePath "$tempdir\delprof2.exe" -ArgumentList /q /d:$days
 #remove-item "$tempdir\delprof2.exe"
