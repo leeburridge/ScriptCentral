@@ -10,7 +10,7 @@ if ($profilecount -gt 0) {
 ##Comment out whichever version you don't want to use
 
 ##Download DelProf1
-Invoke-WebRequest -URI "https://github.com/andrew-s-taylor/public/raw/main/delprof/delprof.exe" -OutFile "$tempdir\delprof.exe"
+Invoke-WebRequest -URI "https://github.com/leeburridge/ScriptCentral/raw/master/Intune/Remediations/Delete_Old_Profiles/delprof.exe" -OutFile "$tempdir\delprof.exe"
 ##Run DelProf1
 Start-Process -FilePath "$tempdir\delprof.exe" -ArgumentList /Q /D:$days
 Remove-Item "$tempdir\delprof.exe"
