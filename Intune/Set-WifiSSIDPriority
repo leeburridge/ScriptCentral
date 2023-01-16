@@ -1,0 +1,5 @@
+# This script will enforce priorities of SSID wifi connections
+# Use this as a template
+
+netsh wlan set profileorder name="SSID #1" interface="Wi-Fi" priority=1
+netsh wlan set profileorder name="SSID #" interface="Wi-Fi" priority=2
