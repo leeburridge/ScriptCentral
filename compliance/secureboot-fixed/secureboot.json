@@ -1,0 +1,18 @@
+{
+"Rules":[ 
+    { 
+       "SettingName":"SecureBoot",
+       "Operator":"IsEquals",
+       "DataType":"String",
+       "Operand":"True",
+       "MoreInfoUrl":"https://www.bing.com/ck/a?!&&p=a296d37f56e80087JmltdHM9MTY3ODQwNjQwMCZpZ3VpZD0yYThiYTc1My01NjgwLTZkOWQtMGI2YS1iNTljNTczYjZjYjImaW5zaWQ9NTIxOQ&ptn=3&hsh=3&fclid=2a8ba753-5680-6d9d-0b6a-b59c573b6cb2&psq=secureboot+microsoft&u=a1aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL2VuLXVzL21lbS9pbnR1bmUvdXNlci1oZWxwL3lvdS1uZWVkLXRvLWVuYWJsZS1zZWN1cmUtYm9vdC13aW5kb3dz&ntb=1",
+       "RemediationStrings":[ 
+          { 
+             "Language":"en_US",
+             "Title":"SecureBoot not enabled.",
+             "Description": "BIOS needs to have SecureBoot enabled"
+          }
+       ]
+    }
+ ]
+}
