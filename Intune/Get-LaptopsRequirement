@@ -1,0 +1,9 @@
+function Get-LaptopChassis {
+$chassis = Get-CimInstance -ClassName Win32_SystemEnclosure | Select-Object -ExpandProperty ChassisTypes
+
+# Laptop chassis types: 8, 9, 10, 14, 18, 21
+if ($chassis -contains 8 -or $chassis -contains 9 -or $chassis -contains 10 -or $chassis -contains 14 -or $chassis -contains 18 -or $chassis -contains 21) {
+    return $true
+} else {
+    return $false
+}
