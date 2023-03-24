@@ -4,13 +4,6 @@ Start-Transcript -Path C:\OSInst\BuildLogs\RemediateWinRE.log
 #Checking WinRE
 #disable-bitlocker -mountpoint "C:"
 
-#$check=Get-BitLockerVolume
-#do {
-#sleep 10
-#$check=Get-BitLockerVolume
-#write-output $check.volumestatus
-#} while ($check.volumestatus -eq "DecryptionInProgress")
-
 	# Remove recovery files from the boot drive
 	cd C:\Windows\System32\Recovery
 	attrib -r -a -s -h *.*
@@ -61,23 +54,23 @@ gpt attributes=0x8000000000000001
     new-item -path x: -Name 'Recovery' -type directory -Force
     new-item -path x:\Recovery -Name 'WindowsRE' -type directory -Force
     #Copy the required files from the local disk
-    $url1 = "https://centralitybitlocker.blob.core.windows.net/bitlocker/boot.sdi"
+    $url1 = ##yourlocation##/boot.sdi"
     Invoke-WebRequest -Uri $url1 -OutFile "x:\Recovery\WindowsRE\boot.sdi" -Method Get
 
-    $url3 = "https://centralitybitlocker.blob.core.windows.net/bitlocker/Winre.wim"
+    $url3 = "##yourlocation##/Winre.wim"
     Invoke-WebRequest -Uri $url3 -OutFile "x:\Recovery\WindowsRE\Winre.wim" -Method Get    
 
-    $url2 = "https://centralitybitlocker.blob.core.windows.net/bitlocker/ReAgent.xml"
+    $url2 = "##yourlocation##/ReAgent.xml"
     Invoke-WebRequest -Uri $url2 -OutFile "x:\Recovery\WindowsRE\ReAgent.xml" -Method Get
 
     ##Copy to c:\windows\system32\recovery as well
     if (-not(Test-Path -Path "C:\windows\system32\recovery\ReAgent.xml" -PathType Leaf)) {
-        $url2 = "https://centralitybitlocker.blob.core.windows.net/bitlocker/ReAgent.xml"
+        $url2 = "##yourlocation#/ReAgent.xml"
         Invoke-WebRequest -Uri $url2 -OutFile "C:\Windows\System32\Recovery\ReAgent.xml" -Method Get
     }
     else {
         remove-item -Path "C:\Windows\System32\Recovery\ReAgent.xml" -Force
-        $url2 = "https://centralitybitlocker.blob.core.windows.net/bitlocker/ReAgent.xml"
+        $url2 = "##yourlocation##/ReAgent.xml"
         Invoke-WebRequest -Uri $url2 -OutFile "C:\Windows\System32\Recovery\ReAgent.xml" -Method Get
     }
     if (-not(Test-Path -Path "C:\windows\system32\recovery\boot.sdi" -PathType Leaf)) {
@@ -96,25 +89,12 @@ gpt attributes=0x8000000000000001
     }
 
     #Set the file attributes on WinrE.wim and boot.sdi
-#    $file1 = Get-ChildItem "x:\Recovery\WindowsRE\boot.sdi"
-#    $file2 = Get-ChildItem "x:\Recovery\WindowsRE\Winre.wim"
-#    $file1.Attributes = "System","Hidden"
-#    $file2.Attributes = "System","Hidden"
-#    #Sleep again
-#    start-sleep -s 600
-#    #Set the recovery target
     reagentc /setreimage /path X:\Recovery\windowsre
-#    #Sleep again
-#    start-sleep -s 600
     #Enable WinRE
     reagentc /enable
     #One last nap
-#    start-sleep -s 600
     #Hide the X drive
-#    $recoverydisk = get-partition | where-object Type -eq "Recovery"
-#   #Record the partition number
-#   $recoverypartition = $recoverydisk.PartitionNumber
-#    Set-Partition -DiskNumber 0 -PartitionNumber $recoverypartition -IsHidden $true
+
     write-host "WinRE rebuild complete"
 
 Stop-Transcript
