@@ -1,4 +1,4 @@
-Start-Transcript -Path C:\OSInst\BuildLogs\RemediateWinRE.log
+Start-Transcript -Path C:\temp\RemediateWinRE.log
 
 	write-host "Rebuilding WinRE"
 #Checking WinRE
