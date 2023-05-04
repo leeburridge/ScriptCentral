@@ -1,13 +1,9 @@
 <#
 Title : Reboot-ToastNotification.ps1
-
 To display toast notif in SYSTEM context we need to use the module RunAsUser available below:
 https://github.com/KelvinTegelaar/RunAsUser
-
 Every part of the module is integrated in this script and will be extracted as different files
-
 Extraction folder is located in: "C:\Windows\Temp\Notification_System"
-
 The remediation script will:
 - Download toast reboot header image HeroImage.png
 - Export Toast_Config.xml
@@ -21,7 +17,7 @@ Function Set_Action
 		param(
 		$Action_Name		
 		)	
-		
+
 		$Main_Reg_Path = "HKCU:\SOFTWARE\Classes\$Action_Name"
 		$Command_Path = "$Main_Reg_Path\shell\open\command"
 		$CMD_Script = "C:\Windows\Temp\$Action_Name.cmd"
@@ -35,18 +31,10 @@ $Restart_Script = @'
 shutdown /r /f /t 1
 '@
 
-$Restart_Script5min = @'
-shutdown /r /f /t 300
-'@
-
 $Script_Export_Path = "C:\Windows\Temp"
 
 $Restart_Script | out-file "$Script_Export_Path\RestartScript.cmd" -Force -Encoding ASCII
 Set_Action -Action_Name RestartScript	
-
-$Restart_Script5min | out-file "$Script_Export_Path\RestartScript5min.cmd" -Force -Encoding ASCII
-Set_Action -Action_Name RestartScript5
-
 
 $Notification_folder = "C:\Windows\Temp\Notification_System"	
 If(!(test-path $Notification_folder)){new-item $Notification_folder -type Directory -force}
@@ -61,8 +49,8 @@ invoke-webrequest -Uri $URL -OutFile $HeroImage -usebasicparsing
 $Title = "IMPORTANT: Please restart your device"
 
 $Message = "A change has been made by Centrality on behalf of Marstons that requires you to restart your device.`n`nThis is to ensure that your device is secure."
-$Button1_Text = "Restart in 5 mins"
-$Button2_Text = "Restart Now"
+$Button1_Text = "Dismiss"
+$Button2_Text = "Reboot Now"
 
 # Text displayed at the top"
 $Text_AppName = "IMPORTANT: Please restart your device"
@@ -70,7 +58,7 @@ $Toast_scenario = "Reminder"
 
 
 ## No more editing required below this point
-	
+
 # Export toast config XML
 
 $Toast_Config = @"
@@ -85,7 +73,7 @@ $Toast_Config = @"
 "@
 $Toast_Config | Out-file "$Notification_folder\Notif_Config.xml"
 
-	
+
 # *************************************************************************************
 # 									Export RunAsuser file	
 # *************************************************************************************
@@ -97,7 +85,6 @@ using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-
 namespace RunAsUser
 {
     internal class NativeHelpers
@@ -110,7 +97,6 @@ namespace RunAsUser
             public int dwProcessId;
             public int dwThreadId;
         }
-
         [StructLayout(LayoutKind.Sequential)]
         public struct STARTUPINFO
         {
@@ -133,36 +119,29 @@ namespace RunAsUser
             public IntPtr hStdOutput;
             public IntPtr hStdError;
         }
-
         [StructLayout(LayoutKind.Sequential)]
         public struct WTS_SESSION_INFO
         {
             public readonly UInt32 SessionID;
-
             [MarshalAs(UnmanagedType.LPStr)]
             public readonly String pWinStationName;
-
             public readonly WTS_CONNECTSTATE_CLASS State;
         }
     }
-
     internal class NativeMethods
     {
         [DllImport("kernel32", SetLastError=true)]
         public static extern int WaitForSingleObject(
           IntPtr hHandle,
           int dwMilliseconds);
-
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool CloseHandle(
             IntPtr hSnapshot);
-
         [DllImport("userenv.dll", SetLastError = true)]
         public static extern bool CreateEnvironmentBlock(
             ref IntPtr lpEnvironment,
             SafeHandle hToken,
             bool bInherit);
-
         [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern bool CreateProcessAsUserW(
             SafeHandle hToken,
@@ -176,12 +155,10 @@ namespace RunAsUser
             String lpCurrentDirectory,
             ref NativeHelpers.STARTUPINFO lpStartupInfo,
             out NativeHelpers.PROCESS_INFORMATION lpProcessInformation);
-
         [DllImport("userenv.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DestroyEnvironmentBlock(
             IntPtr lpEnvironment);
-
         [DllImport("advapi32.dll", SetLastError = true)]
         public static extern bool DuplicateTokenEx(
             SafeHandle ExistingTokenHandle,
@@ -190,7 +167,6 @@ namespace RunAsUser
             SECURITY_IMPERSONATION_LEVEL ImpersonationLevel,
             TOKEN_TYPE TokenType,
             out SafeNativeHandle DuplicateTokenHandle);
-
         [DllImport("advapi32.dll", SetLastError = true)]
         public static extern bool GetTokenInformation(
             SafeHandle TokenHandle,
@@ -198,7 +174,6 @@ namespace RunAsUser
             SafeMemoryBuffer TokenInformation,
             int TokenInformationLength,
             out int ReturnLength);
-
         [DllImport("wtsapi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern bool WTSEnumerateSessions(
             IntPtr hServer,
@@ -206,20 +181,16 @@ namespace RunAsUser
             int Version,
             ref IntPtr ppSessionInfo,
             ref int pCount);
-
         [DllImport("wtsapi32.dll")]
         public static extern void WTSFreeMemory(
             IntPtr pMemory);
-
         [DllImport("kernel32.dll")]
         public static extern uint WTSGetActiveConsoleSessionId();
-
         [DllImport("Wtsapi32.dll", SetLastError = true)]
         public static extern bool WTSQueryUserToken(
             uint SessionId,
             out SafeNativeHandle phToken);
     }
-
     internal class SafeMemoryBuffer : SafeHandleZeroOrMinusOneIsInvalid
     {
         public SafeMemoryBuffer(int cb) : base(true)
@@ -230,25 +201,21 @@ namespace RunAsUser
         {
             base.SetHandle(handle);
         }
-
         protected override bool ReleaseHandle()
         {
             Marshal.FreeHGlobal(handle);
             return true;
         }
     }
-
     internal class SafeNativeHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         public SafeNativeHandle() : base(true) { }
         public SafeNativeHandle(IntPtr handle) : base(true) { this.handle = handle; }
-
         protected override bool ReleaseHandle()
         {
             return NativeMethods.CloseHandle(handle);
         }
     }
-
     internal enum SECURITY_IMPERSONATION_LEVEL
     {
         SecurityAnonymous = 0,
@@ -256,7 +223,6 @@ namespace RunAsUser
         SecurityImpersonation = 2,
         SecurityDelegation = 3,
     }
-
     internal enum SW
     {
         SW_HIDE = 0,
@@ -274,20 +240,17 @@ namespace RunAsUser
         SW_SHOWDEFAULT = 10,
         SW_MAX = 10
     }
-
     internal enum TokenElevationType
     {
         TokenElevationTypeDefault = 1,
         TokenElevationTypeFull,
         TokenElevationTypeLimited,
     }
-
     internal enum TOKEN_TYPE
     {
         TokenPrimary = 1,
         TokenImpersonation = 2
     }
-
     internal enum WTS_CONNECTSTATE_CLASS
     {
         WTSActive,
@@ -301,42 +264,32 @@ namespace RunAsUser
         WTSDown,
         WTSInit
     }
-
     public class Win32Exception : System.ComponentModel.Win32Exception
     {
         private string _msg;
-
         public Win32Exception(string message) : this(Marshal.GetLastWin32Error(), message) { }
         public Win32Exception(int errorCode, string message) : base(errorCode)
         {
             _msg = String.Format("{0} ({1}, Win32ErrorCode {2} - 0x{2:X8})", message, base.Message, errorCode);
         }
-
         public override string Message { get { return _msg; } }
         public static explicit operator Win32Exception(string message) { return new Win32Exception(message); }
     }
-
     public static class ProcessExtensions
     {
         #region Win32 Constants
-
         private const int CREATE_UNICODE_ENVIRONMENT = 0x00000400;
         private const int CREATE_NO_WINDOW = 0x08000000;
-
         private const int CREATE_NEW_CONSOLE = 0x00000010;
-
         private const uint INVALID_SESSION_ID = 0xFFFFFFFF;
         private static readonly IntPtr WTS_CURRENT_SERVER_HANDLE = IntPtr.Zero;
-
         #endregion
-
         // Gets the user token from the currently active session
         private static SafeNativeHandle GetSessionUserToken()
         {
             var activeSessionId = INVALID_SESSION_ID;
             var pSessionInfo = IntPtr.Zero;
             var sessionCount = 0;
-
             // Get a handle to the user access token for the current active session.
             if (NativeMethods.WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, ref pSessionInfo, ref sessionCount))
             {
@@ -344,13 +297,11 @@ namespace RunAsUser
                 {
                     var arrayElementSize = Marshal.SizeOf(typeof(NativeHelpers.WTS_SESSION_INFO));
                     var current = pSessionInfo;
-
                     for (var i = 0; i < sessionCount; i++)
                     {
                         var si = (NativeHelpers.WTS_SESSION_INFO)Marshal.PtrToStructure(
                             current, typeof(NativeHelpers.WTS_SESSION_INFO));
                         current = IntPtr.Add(current, arrayElementSize);
-
                         if (si.State == WTS_CONNECTSTATE_CLASS.WTSActive)
                         {
                             activeSessionId = si.SessionID;
@@ -363,26 +314,22 @@ namespace RunAsUser
                     NativeMethods.WTSFreeMemory(pSessionInfo);
                 }
             }
-
             // If enumerating did not work, fall back to the old method
             if (activeSessionId == INVALID_SESSION_ID)
             {
                 activeSessionId = NativeMethods.WTSGetActiveConsoleSessionId();
             }
-
             SafeNativeHandle hImpersonationToken;
             if (!NativeMethods.WTSQueryUserToken(activeSessionId, out hImpersonationToken))
             {
                 throw new Win32Exception("WTSQueryUserToken failed to get access token.");
             }
-
             using (hImpersonationToken)
             {
                 // First see if the token is the full token or not. If it is a limited token we need to get the
                 // linked (full/elevated token) and use that for the CreateProcess task. If it is already the full or
                 // default token then we already have the best token possible.
                 TokenElevationType elevationType = GetTokenElevationType(hImpersonationToken);
-
                 if (elevationType == TokenElevationType.TokenElevationTypeLimited)
                 {
                     using (var linkedToken = GetTokenLinkedToken(hImpersonationToken))
@@ -394,18 +341,15 @@ namespace RunAsUser
                 }
             }
         }
-
         public static int StartProcessAsCurrentUser(string appPath, string cmdLine = null, string workDir = null, bool visible = true,int wait = -1)
         {
             using (var hUserToken = GetSessionUserToken())
             {
                 var startInfo = new NativeHelpers.STARTUPINFO();
                 startInfo.cb = Marshal.SizeOf(startInfo);
-
                 uint dwCreationFlags = CREATE_UNICODE_ENVIRONMENT | (uint)(visible ? CREATE_NEW_CONSOLE : CREATE_NO_WINDOW);
                 startInfo.wShowWindow = (short)(visible ? SW.SW_SHOW : SW.SW_HIDE);
                 //startInfo.lpDesktop = "winsta0\\default";
-
                 IntPtr pEnv = IntPtr.Zero;
                 if (!NativeMethods.CreateEnvironmentBlock(ref pEnv, hUserToken, false))
                 {
@@ -415,7 +359,6 @@ namespace RunAsUser
                 {
                     StringBuilder commandLine = new StringBuilder(cmdLine);
                     var procInfo = new NativeHelpers.PROCESS_INFORMATION();
-
                     if (!NativeMethods.CreateProcessAsUserW(hUserToken,
                         appPath, // Application Name
                         commandLine, // Command Line
@@ -430,7 +373,6 @@ namespace RunAsUser
                     {
                         throw new Win32Exception("CreateProcessAsUser failed.");
                     }
-
                     try
                     {
                         NativeMethods.WaitForSingleObject( procInfo.hProcess, wait);
@@ -448,7 +390,6 @@ namespace RunAsUser
                 }
             }
         }
-
         private static SafeNativeHandle DuplicateTokenAsPrimary(SafeHandle hToken)
         {
             SafeNativeHandle pDupToken;
@@ -457,10 +398,8 @@ namespace RunAsUser
             {
                 throw new Win32Exception("DuplicateTokenEx failed.");
             }
-
             return pDupToken;
         }
-
         private static TokenElevationType GetTokenElevationType(SafeHandle hToken)
         {
             using (SafeMemoryBuffer tokenInfo = GetTokenInformation(hToken, 18))
@@ -468,7 +407,6 @@ namespace RunAsUser
                 return (TokenElevationType)Marshal.ReadInt32(tokenInfo.DangerousGetHandle());
             }
         }
-
         private static SafeNativeHandle GetTokenLinkedToken(SafeHandle hToken)
         {
             using (SafeMemoryBuffer tokenInfo = GetTokenInformation(hToken, 19))
@@ -476,7 +414,6 @@ namespace RunAsUser
                 return new SafeNativeHandle(Marshal.ReadIntPtr(tokenInfo.DangerousGetHandle()));
             }
         }
-
         private static SafeMemoryBuffer GetTokenInformation(SafeHandle hToken, uint infoClass)
         {
             int returnLength;
@@ -487,11 +424,9 @@ namespace RunAsUser
             {
                 throw new Win32Exception(errCode, String.Format("GetTokenInformation({0}) failed to get buffer length", infoClass));
             }
-
             SafeMemoryBuffer tokenInfo = new SafeMemoryBuffer(returnLength);
             if (!NativeMethods.GetTokenInformation(hToken, infoClass, tokenInfo, returnLength, out returnLength))
                 throw new Win32Exception(String.Format("GetTokenInformation({0}) failed", infoClass));
-
             return tokenInfo;
         }
     }
@@ -511,10 +446,10 @@ foreach ($import in @($Public))
 }
 '@
 $RuAsuser_PSM1 | out-file "$Notification_folder\runasuser.psm1"
-	
-	
-	
-	
+
+
+
+
 # *************************************************************************************
 # 							Export Invoke_CurrentUser file	
 # *************************************************************************************	
@@ -554,7 +489,7 @@ function Invoke-AsCurrentUser {
 }
 '@	
 $Invoke_CurrentUser | out-file "$Notification_folder\Invoke-AsCurrentUser.ps1"
-	
+
 
 
 # *************************************************************************************
@@ -563,10 +498,8 @@ $Invoke_CurrentUser | out-file "$Notification_folder\Invoke-AsCurrentUser.ps1"
 # This file contains the notification to display
 $Notif_User = @'
 $Global:Current_Folder = split-path $MyInvocation.MyCommand.Path
-
 Function Register-NotificationApp($AppID,$AppDisplayName) {
     [int]$ShowInSettings = 0
-
     [int]$IconBackgroundColor = 0
 	$IconUri = "C:\Windows\ImmersiveControlPanel\images\logo.png"
 	
@@ -579,7 +512,6 @@ Function Register-NotificationApp($AppID,$AppDisplayName) {
 			New-Item -Path "$Notifications_Reg\$AppID" -Force
 			New-ItemProperty -Path "$Notifications_Reg\$AppID" -Name 'ShowInActionCenter' -Value 1 -PropertyType 'DWORD' -Force
 		}
-
 	If((Get-ItemProperty -Path "$Notifications_Reg\$AppID" -Name 'ShowInActionCenter' -ErrorAction SilentlyContinue).ShowInActionCenter -ne '1') 
 		{
 			New-ItemProperty -Path "$Notifications_Reg\$AppID" -Name 'ShowInActionCenter' -Value 1 -PropertyType 'DWORD' -Force
@@ -604,7 +536,6 @@ Function Register-NotificationApp($AppID,$AppDisplayName) {
     }
     catch {}
 }
-
 $Notif_Config_XML = "C:\Windows\Temp\Notification_System\Notif_Config.xml"
 $Get_Notif_Content = ([xml](get-content $Notif_Config_XML)).Toast_Notif
 $Title = $Get_Notif_Content.Notif_Title
@@ -613,17 +544,11 @@ $Button1_Text = $Get_Notif_Content.Button1_Text
 $Button2_Text = $Get_Notif_Content.Button2_Text
 $Text_AppName = $Get_Notif_Content.Text_AppName
 $Notif_Scenario = $Get_Notif_Content.Notif_Scenario	
-
-
 #**************************************************************************************************************************
 # 													TOAST NOTIF PART
 #**************************************************************************************************************************
-
 ######### Define restart button action
-
 $Action_Restart = "RestartScript:"
-$Action_Restart5 = "RestartScript5"
-
 $HeroImage = "c:\Windows\temp\Notification_System\HeroPicture.png"
 [xml]$Toast = @"
 <toast scenario="$Notif_Scenario">
@@ -640,17 +565,14 @@ $HeroImage = "c:\Windows\temp\Notification_System\HeroPicture.png"
     </visual>
   <actions>
 	<action arguments="$Action_Restart" content="$Button2_Text" activationType="protocol" />
-        <action arguments="$Action_Restart5" content="$Button1_Text" activationType="protocol" />		
+        <action arguments="" content="$Button1_Text" activationType="protocol" />		
    </actions>	
 </toast>
 "@	
-
 ################ End Define restart button action
-
 $AppID = $Text_AppName
 $AppDisplayName = $Text_AppName
 Register-NotificationApp -AppID $Text_AppName -AppDisplayName $Text_AppName
-
 # Toast creation and display
 $Load = [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime]
 $Load = [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime]
@@ -661,8 +583,8 @@ $ToastXml.LoadXml($Toast.OuterXml)
 '@	
 $Notif_User | out-file "$Notification_folder\Notif_User.ps1"
 
-	
-	
+
+
 Try
 	{
 		import-module "$Notification_folder\RunasUser"				
@@ -672,7 +594,7 @@ Catch
 	{
 		$RunasUser_Module_imported = $False
 	}
-		
+
 If($RunasUser_Module_imported -eq $True)
 	{
 		$scriptblock = {
