@@ -22,7 +22,7 @@ Function Set_Action
 		$Action_Name		
 		)	
 		
-		$Main_Reg_Path = "HKCU:\SOFTWARE\Classes\$Action_Name"
+		$Main_Reg_Path = "HKLM:\SOFTWARE\Classes\$Action_Name"
 		$Command_Path = "$Main_Reg_Path\shell\open\command"
 		$CMD_Script = "C:\Windows\Temp\$Action_Name.cmd"
 		New-Item $Command_Path -Force
@@ -32,21 +32,13 @@ Function Set_Action
 	}
 
 $Restart_Script = @'
-shutdown /r /f /t 1
-'@
-
-$Restart_Script5min = @'
-shutdown /r /f /t 300
+shutdown /r /f /t 1800
 '@
 
 $Script_Export_Path = "C:\Windows\Temp"
 
 $Restart_Script | out-file "$Script_Export_Path\RestartScript.cmd" -Force -Encoding ASCII
 Set_Action -Action_Name RestartScript	
-
-$Restart_Script5min | out-file "$Script_Export_Path\RestartScript5min.cmd" -Force -Encoding ASCII
-Set_Action -Action_Name RestartScript5
-
 
 $Notification_folder = "C:\Windows\Temp\Notification_System"	
 If(!(test-path $Notification_folder)){new-item $Notification_folder -type Directory -force}
@@ -61,8 +53,8 @@ invoke-webrequest -Uri $URL -OutFile $HeroImage -usebasicparsing
 $Title = "IMPORTANT: Please restart your device"
 
 $Message = "A change has been made by Centrality on behalf of Marstons that requires you to restart your device.`n`nThis is to ensure that your device is secure."
-$Button1_Text = "Restart in 5 mins"
-$Button2_Text = "Restart Now"
+$Button1_Text = "Dismiss"
+$Button2_Text = "Restart in 30 mins"
 
 # Text displayed at the top"
 $Text_AppName = "IMPORTANT: Please restart your device"
@@ -622,7 +614,6 @@ $Notif_Scenario = $Get_Notif_Content.Notif_Scenario
 ######### Define restart button action
 
 $Action_Restart = "RestartScript:"
-$Action_Restart5 = "RestartScript5"
 
 $HeroImage = "c:\Windows\temp\Notification_System\HeroPicture.png"
 [xml]$Toast = @"
@@ -640,7 +631,7 @@ $HeroImage = "c:\Windows\temp\Notification_System\HeroPicture.png"
     </visual>
   <actions>
 	<action arguments="$Action_Restart" content="$Button2_Text" activationType="protocol" />
-        <action arguments="$Action_Restart5" content="$Button1_Text" activationType="protocol" />		
+        <action arguments="" content="$Button1_Text" activationType="protocol" />		
    </actions>	
 </toast>
 "@	
