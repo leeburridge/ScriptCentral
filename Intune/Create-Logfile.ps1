@@ -13,7 +13,7 @@ try {
     $folderPath = "C:\ProgramData\Microsoft\IntuneManagementExtension\Logs"
     $filePath = Join-Path -Path $folderPath -ChildPath "example.log"
     "Log entry" | Out-File -FilePath $filePath -Append
-    write-ouput "File Created"
+    write-output "File Created"
 }
 
 catch {
