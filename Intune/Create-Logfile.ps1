@@ -4,6 +4,7 @@
 # Description : Simple template script to demonstrate logging to a "know" location
 # For devices enrolled in Endpoint Manager these logs can be remotely
 # downloaded from a device using the Collect Diagnostics feature in MEM
+# The log files can be found in file 71 within the log files collected "(71) FoldersFiles temp_MDMDiagnostics_mdmlogs-"
 
 # Using transcript to log to IME folder for the overall script
 Start-Transcript -Path C:\ProgramData\Microsoft\IntuneManagementExtension\Logs\exampletranscript.log
