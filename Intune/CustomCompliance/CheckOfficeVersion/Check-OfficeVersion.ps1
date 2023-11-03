@@ -1,5 +1,6 @@
-$OfficeVer = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Office\ClickToRun\Configuration' ` | Select-Object -ExpandProperty VersionToReport
+$OfficeVer = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Office\ClickToRun\Configuration' 
 
-$hash =  @{ OfficeVersion = $OfficeVer }
+$hash =  @{ OfficeVersion = $OfficeVer.VersionToReport; UpdateChannel = $OfficeVer.UpdateChannel }
 
-Return $hash | ConvertTo-Json $hash
+Return $hash | ConvertTo-Json -Compress
+
