@@ -5,7 +5,6 @@
            "Operator":"GreaterThan",
            "DataType":"Version",
            "Operand":"16.0.16626.20208",
-           "MoreInfoUrl":"https://learn.microsoft.com/en-us/officeupdates/update-history-microsoft365-apps-by-date",
            "RemediationStrings":[ 
               { 
                  "Language":"en_US",
