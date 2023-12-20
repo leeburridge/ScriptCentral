@@ -1,0 +1,18 @@
+{
+    "Rules":[ 
+        { 
+           "SettingName":"OfficeVersion",
+           "Operator":"GreaterThan",
+           "DataType":"Version",
+           "Operand":"16.0.16626.20208",
+                 "MoreInfoUrl":"https://learn.microsoft.com/en-us/officeupdates/update-history-microsoft365-apps-by-date",
+           "RemediationStrings":[ 
+              { 
+                 "Language":"en_US",
+                 "Title":"Office 365 is out of date.",
+                 "Description": "Office 365 out of date"
+              }
+           ]
+        }
+     ]
+    }
